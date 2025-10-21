@@ -30,6 +30,3 @@
 
 </body>
 </html>
-listar.php
-Externos
-Exibindo listar.php…
