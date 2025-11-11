@@ -1,42 +1,43 @@
-<?php 
+<?php
+
 include('conexao.php');
 
 if(isset($_POST['email']) || isset($_POST['senha'])){
-  if(strlen($_POST['email'])  == 0){
-     echo "Preencha seu email";
-  }
-  else if (strlen($_POST['senha']) == 0) {
-    echo "Preencha sua senha";
-  }
-
-  else{
-    $email = $mysqli->real_escape_string($_POST['email']);
-    $senha = $mysqli->real_escape_string($_POST['senha']);
-
-    $sql = "SELECT * FROM usuarios WHERE email = '$email' AND senha = '$senha'";
-
-    $lista_usuarios = $mysqli->query($sql);
-    $quantidade = $lista_usuarios->num_rows;
-
-    if($quantidade == 1){
-      $usuario = $lista_usuarios->fetch_assoc();
-
-      if(!isset($_SESSION)){
-        session_start();
+    if(strlen($_POST['email']) == 0){
+        echo "Preencha seu email" ;
     }
-      $_SESSION['id'] = $usuario['id'];
-      $_SESSION['nome'] = $usuario['nome'];
-
-      header("Location: painel.php");
+    else if(strlen($_POST['senha']) == 0){
+        echo "Preencha sua senha"; 
     }
-   else{
-    echo "Falha ao login";
- }
-  }
+       
+    else{
+        $email = $mysqli->real_escape_string($_POST['email']);
+        $senha = $mysqli->real_escape_string($_POST['senha']); 
+
+        $sql = "SELECT * FROM usuarios WHERE email = '$email' AND senha = '$senha'";
+
+        $lista_usuarios = $mysqli->query($sql); 
+        $quantidade  = $lista_usuarios->num_rows; 
+
+        if($quantidade == 1){
+            $usuario = $lista_usuarios->fetch_assoc(); 
+
+            if(!isset($_SESSION)){
+                session_start(); 
+            }
+
+            $_SESSION['id'] = $usuario['id']; 
+            $_SESSION['nome'] = $usuario['nome'];
+
+            header("Location: painel.php"); 
+        }
+        else{
+            echo "Falha ao logar" ; 
+        }
+    }
 }
 
 ?>
-
 
 <!DOCTYPE html>
 <html lang="en">
@@ -63,5 +64,3 @@ if(isset($_POST['email']) || isset($_POST['senha'])){
     </form>
 </body>
 </html>
-
-
